@@ -38,4 +38,6 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
 
-USER node
+# Stay as root — original Shinyduo Dockerfile did the same, and Railway
+# volume mount (/home/node/.n8n) was set up for root ownership. Switching
+# to USER node breaks the existing volume permissions (EACCES on config).
